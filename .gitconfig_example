@@ -1,0 +1,13 @@
+[user]
+	name = User Name
+	email = email@server.com
+[credential]
+	helper = !'C:\\Users\\dsanderson\\AppData\\Roaming\\GitCredStore\\git-credential-winstore.exe'
+[difftool]
+	prompt = true
+[core]
+	editor = 'C:/Program Files (x86)/Git/bin/npp.sh'
+[diff]
+    tool = winmerge
+[difftool "winmerge"]
+    cmd = 'C:/Program Files (x86)/Git/bin/winmerge.sh' "$LOCAL" "$REMOTE" "$BASE"
