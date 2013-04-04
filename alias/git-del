@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Adds following feature to deleting a branch.
+# If the branch being deleted matches the current branch, then it will force 
+# deleting the branch (-D option), if it is different than the current branch, 
+# the normal check for merged branch will be included (-d)
+
+if [ -n "`git diff $1`" ]; then
+	git branch -d $1
+else
+	git branch -D $1
+fi
+
