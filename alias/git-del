@@ -4,6 +4,23 @@
 # If the branch being deleted matches the current branch, then it will force 
 # deleting the branch (-D option), if it is different than the current branch, 
 # the normal check for merged branch will be included (-d)
+#
+# Add the following lines to your .bashrc file to enable autocomplete:
+#
+#_git_del() 
+#{
+#	local i c=1 only_local_ref="y" has_r="n" cur words cword
+# 
+#	_get_comp_words_by_ref -n =: cur words cword
+#		 
+#	__gitcomp "
+#	--color --no-color --verbose --abbrev= --no-abbrev
+#	--track --no-track --contains --merged --no-merged
+#	--set-upstream
+#	"
+#	
+#	__gitcomp "$(__git_heads)"
+#}
 
 if [ -n "`git diff $1`" ]; then
 	git branch -d $1
