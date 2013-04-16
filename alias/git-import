@@ -1,0 +1,45 @@
+#!/bin/sh
+
+# Import changes from a shared directory into a git working directory.  Intended
+# to used along with git-deploy alias
+#
+# After importing all files will be present in the working directory but not
+# staged or committed.
+#
+# Installation:
+# 
+# Copy this file to the bin folder of the git install directory.
+#
+# To enable autocomplete, add the following to ~/.bashrc
+#		
+#	 _git_import()
+#	{
+#		_git_pull
+#	}
+#
+# Usage:
+# Add a new remote pointing to the shared location (this should not be an empty
+# directory, not a shared repository).
+#
+# From the local repository, run the following command:
+# 	git import remote_name
+#
+# Alternatively, push to an arbitrary location using the following:
+#	git import <shared_path (unix style)>
+#
+# Limitations:
+# * Must have appropriate permissions to read from deploy directory
+# * Will overwrite working directory changes without warning
+# * Will not delete files that were deleted in deploy directory
+#
+
+
+DEPLOY_DIR=`git config --get remote.$1.url 2>/dev/null`
+
+if [ -z "$DEPLOY_DIR" ]; then
+	DEPLOY_DIR=$1
+fi
+
+echo "Importing from: $DEPLOY_DIR"
+
+cp -r "$DEPLOY_DIR/"* .

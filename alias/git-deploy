@@ -1,0 +1,48 @@
+#!/bin/sh
+
+# A client side alias to deploy a git working directory to a shared file-system
+# location
+#
+# Installation:
+# 
+# Copy this file to the bin folder of the git install directory.
+#
+# To enable autocomplete, add the following to ~/.bashrc
+#		
+#	 _git_deploy()
+#	{
+#		_git_push
+#	}
+#
+# Usage:
+# Add a new remote pointing to the shared location (this should not be an empty
+# directory, not a shared repository).
+#
+# From the local repository, run the following command:
+# 	git deploy remote_name [branch_name]
+#
+# Alternatively, push to an arbitrary location using the following:
+#	git deploy <shared_path (unix style)> [branch_name]
+#
+# Limitations:
+# * Untracked files (configuration files, build artifacts, etc), will not be 
+#   included in the distribution directory unless manually added. These files
+#	must be ignored by git or they will be removed from the distribution
+# * Must have appropriate permissions to update the shared working directory 
+#	location
+# * Autocomplete not functional for optional branch argument
+# * Will not prevent overwriting working directory changes
+#
+
+
+DEPLOY_DIR=`git config --get remote.$1.url 2>/dev/null`
+
+if [ -z "$DEPLOY_DIR" ]; then
+	DEPLOY_DIR=$1
+fi
+
+echo "Deploying to: $DEPLOY_DIR"
+
+mkdir -p $DEPLOY_DIR
+GIT_WORK_TREE=$DEPLOY_DIR git checkout -qf $2
+GIT_WORK_TREE=$DEPLOY_DIR git clean -qdf
