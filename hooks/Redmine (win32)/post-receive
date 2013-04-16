@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cscript "hooks/refresh_redmine.vbs"  //Nologo >> "hooks/refresh_redmine.log" 2>&1

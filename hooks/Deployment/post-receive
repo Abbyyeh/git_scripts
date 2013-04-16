@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# This post-receive hook is intended to be used to create a local copy of the 
+# working directory.
+#
+# 1. Create an empty directory where the code will be deployed (not a git repo)
+# 2. Change the git work tree to point to the new directory 
+#      (use unix style path: / or \\: eg: c:/work/test)
+#
+# There are some limitations to this script to be aware of:
+# * All files must be pushed to the master branch of the staging directory
+#	(other branches will not trigger an update of the working directory unless
+#	the remote HEAD is changed)
+# 	> git push origin:new_branch
+# * Untracked files (configuration files, build artifacts, etc), will not be 
+#   included in the distribution directory unless manually added. These files
+#	must be ignored by git or they will be removed from the distribution
+# * Must have appropriate permissions to update the shared working directory 
+#	location
+#
+#  For a client side deployment implementation, refore to the git-deploy alias.
+#
+
+DEPLOY_DIR="/var/www/deploy_target_path"
+
+echo "Deploying to: $DEPLOY_DIR"
+
+GIT_WORK_TREE=$DEPLOY_DIR git checkout -qf
+GIT_WORK_TREE=$DEPLOY_DIR git clean -qdf

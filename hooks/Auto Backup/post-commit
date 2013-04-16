@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# An example hook script that is called after a successful
+# commit is made.
+#
+# To enable this hook, rename this file to "post-commit".
+
+BACKUP_DIR="S:/Users/dsanderson/git backup test/"
+
+REPO_NAME=${PWD##*/}
+BACKUP_URL=$BACKUP_DIR"$REPO_NAME".git
+git init --bare "$BACKUP_URL" &> /dev/null 
+git remote add backup "$BACKUP_URL" &> /dev/null 
+git push backup --all -f
+git push backup --tags -f
+
+
