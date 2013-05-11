@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Quick amend function
+#
+# will stage all changes, then amend them without opening the edit window
+#
+
+
+git stage --all;
+git commit --amend --no-edit;
+
