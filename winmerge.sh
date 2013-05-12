@@ -1,4 +1,16 @@
 #!/bin/sh
+
+# Installation Instructions
+#
+# 1. Download and install winmerge: http://winmerge.org/
+# 2. Copy winmerge.sh to C:\Program Files (x86)\Git\bin:
+# 3. Add following to global .gitconfig
+#   [diff]
+#     tool = winmerge
+#   [difftool "winmerge"]
+#     cmd = 'C:/Program Files (x86)/Git/bin/winmerge.sh' "$LOCAL" "$REMOTE" "$BASE"
+#
+
 NULL="/dev/null"
 if [ "$2" = "$NULL" ] ; then
    echo "removed: $3"
