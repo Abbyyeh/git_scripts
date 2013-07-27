@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Quick commit all functions
+#
+# will stage all changes, then commit them.  Unlike git commit -a, this will
+# automatically stage all new files.
+#
+# Accepts all arguments of git-commit
+#
+# Installation:
+# 
+# Copy this file to the bin folder of the git install directory.
+#
+# To enable autocomplete, add the following to ~/.bashrc
+#		
+#	 _git_ca()
+#	{
+#		_git_commit
+#	}
+#
+
+
+git stage --all;
+git commit "$@"
+
